@@ -95,6 +95,7 @@ dribble-ai-interview-feedback-bot/
 │       ├── admin.html
 │       └── view_result.html
 │
+├── screenshots/
 ├── .gitignore
 ├── requirements.txt
 └── README.md
@@ -148,6 +149,29 @@ The system analyzes interview responses and provides:
 
 ---
 
+## Application Screenshots
+
+### Login Page
+![Login](screenshots/login.png)
+
+### Dashboard
+![Dashboard](screenshots/dashboard.png)
+
+### Interview Page
+![Interview](screenshots/interview.png)
+
+### Feedback Report
+![Report 1](screenshots/report1.png)
+![Report 2](screenshots/report2.png)
+![Report 3](screenshots/report3.png)
+![Report 4](screenshots/report4.png)
+
+### Latency Report
+![Latency 1](screenshots/latency1.png)
+![Latency 2](screenshots/latency2.png)
+
+---
+
 ## Future Improvements
 
 - Real-time speech analysis
@@ -161,3 +185,4 @@ The system analyzes interview responses and provides:
 
 **Sharan Tej Reddy**  
 B.Tech – Computer Science Engineering
+Vellore Institute of Technology, Vellore
