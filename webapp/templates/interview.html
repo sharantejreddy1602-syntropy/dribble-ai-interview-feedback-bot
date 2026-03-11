@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dribble - Interview</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<header class="main-header">
+    <div class="header-left">
+        <img src="{{ url_for('static', filename='pics/logo.png') }}" class="logo" alt="Dribble Logo">
+    </div>
+
+    <div class="header-center">
+        <div class="header-title">Dribble - AI Interview Bot</div>
+        <div class="header-quote">Speak • Analyze • Improve</div>
+    </div>
+
+    <div class="header-right">
+        <a href="/dashboard" class="nav-btn">Home</a>
+        <a href="/latency" class="nav-btn">Latency Benchmark</a>
+
+        {% if session.get("role") == "admin" %}
+        <a href="/admin" class="nav-btn">Admin</a>
+        {% endif %}
+
+        <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+</header>
+
+
+<div class="token-bar">
+    <p><b>Token:</b> {{ token }}</p>
+    <p class="expiry-text">Token Expiry: 5 minutes</p>
+</div>
+
+<div class="container">
+
+    <div class="card">
+        <h2>Select Interview Round</h2>
+
+        <div class="category-grid">
+            <div class="category-box" onclick="selectCategory('HR')">HR Round</div>
+            <div class="category-box" onclick="selectCategory('Technical')">Technical Round</div>
+            <div class="category-box" onclick="selectCategory('Aptitude')">Aptitude Round</div>
+            <div class="category-box" onclick="selectCategory('Behavioral')">Behavioral Round</div>
+        </div>
+
+        <hr>
+
+        <h2 id="roundTitle">Choose a round to start</h2>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="question-box" id="questionBox">
+            Please select a round to view questions.
+        </div>
+
+        <div class="question-nav">
+            <button type="button" onclick="prevQuestion()">⬅ Previous</button>
+            <p><b>Question:</b> <span id="qIndex">0</span>/5</p>
+            <button type="button" onclick="nextQuestion()">Next ➡</button>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data" style="margin-top:20px;">
+            <input type="hidden" name="category" id="categoryInput">
+            <input type="hidden" name="question" id="questionInput">
+
+            <label><b>Upload Answer File (mp3/mp4/wav):</b></label>
+            <input type="file" name="audio" required>
+
+            <button type="submit">Submit Answer</button>
+        </form>
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2026 Dribble AI Interview Bot | Hackathon Project</p>
+</footer>
+
+<script>
+    const questions = {
+        "HR": [
+            "Tell me about yourself.",
+            "Why do you want this job?",
+            "What are your strengths and weaknesses?",
+            "Where do you see yourself in 5 years?",
+            "Why should we hire you?"
+        ],
+        "Technical": [
+            "Explain OOP concepts with examples.",
+            "What is the difference between SQL and NoSQL?",
+            "Explain the working of REST API.",
+            "What is the difference between process and thread?",
+            "Explain how Git works and why it is used."
+        ],
+        "Aptitude": [
+            "If a train travels 60km in 1 hour, how far will it go in 2.5 hours?",
+            "If 5 workers complete a job in 10 days, how many days for 10 workers?",
+            "A shopkeeper gives 20% discount on marked price. What is the selling price of 1000?",
+            "If A is twice as old as B, and B is 20, what is A’s age?",
+            "Solve: 15% of 200 + 10% of 300."
+        ],
+        "Behavioral": [
+            "Tell me about a time you faced a challenge and overcame it.",
+            "Describe a situation where you worked in a team.",
+            "Tell me about a time you failed and what you learned.",
+            "Describe a time you showed leadership.",
+            "How do you handle pressure and deadlines?"
+        ]
+    };
+
+    let selectedCategory = "";
+    let currentQuestionIndex = 0;
+
+    function selectCategory(category) {
+        selectedCategory = category;
+        currentQuestionIndex = 0;
+
+        document.getElementById("roundTitle").innerText = category + " Round Questions";
+        updateQuestionDisplay();
+        updateCategoryUI();
+    }
+
+    function updateCategoryUI() {
+        const boxes = document.getElementsByClassName("category-box");
+        for (let box of boxes) {
+            box.classList.remove("active");
+            if (box.innerText.toLowerCase().includes(selectedCategory.toLowerCase())) {
+                box.classList.add("active");
+            }
+        }
+    }
+
+    function updateQuestionDisplay() {
+        if (selectedCategory === "") {
+            return;
+        }
+
+        const qText = questions[selectedCategory][currentQuestionIndex];
+
+        document.getElementById("questionBox").innerText = qText;
+        document.getElementById("categoryInput").value = selectedCategory;
+        document.getElementById("questionInput").value = qText;
+
+        document.getElementById("qIndex").innerText = (currentQuestionIndex + 1);
+
+        const progress = ((currentQuestionIndex + 1) / 5) * 100;
+        document.getElementById("progressFill").style.width = progress + "%";
+    }
+
+    function nextQuestion() {
+        if (selectedCategory === "") {
+            alert("Please select a round first!");
+            return;
+        }
+
+        if (currentQuestionIndex < 4) {
+            currentQuestionIndex++;
+            updateQuestionDisplay();
+        }
+    }
+
+    function prevQuestion() {
+        if (selectedCategory === "") {
+            alert("Please select a round first!");
+            return;
+        }
+
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            updateQuestionDisplay();
+        }
+    }
+</script>
+
+</body>
+</html>

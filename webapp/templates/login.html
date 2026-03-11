@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - Dribble</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<header class="main-header">
+    <div class="header-left">
+        <img src="{{ url_for('static', filename='pics/logo.png') }}" class="logo" alt="Dribble Logo">
+    </div>
+
+    <div class="header-center">
+        <div class="header-title">Dribble - AI Interview Bot</div>
+        <div class="header-quote">Speak • Analyze • Improve</div>
+    </div>
+
+    <div class="header-right">
+        <!-- Empty space for balancing alignment -->
+    </div>
+</header>
+
+
+<div class="login-page">
+    <div class="login-box">
+        <h2>Login</h2>
+
+        <form method="POST">
+            <label class="form-label">Username:</label>
+            <input type="text" name="username" placeholder="Enter username" required>
+
+            <label class="form-label">Password:</label>
+            <input type="password" name="password" placeholder="Enter password" required>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <div class="demo-box">
+            <b>Demo Credentials (For Judges):</b><br><br>
+            <b>User Login:</b> user / user123 <br>
+            <b>Admin Login:</b> admin / admin123
+        </div>
+    </div>
+</div>
+
+<footer>
+    © 2026 Dribble Interview Bot | Built for Hackathon Demo
+</footer>
+
+</body>
+</html>

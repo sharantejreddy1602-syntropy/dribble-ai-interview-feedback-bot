@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dribble - Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="main-body">
+
+    <!-- HEADER -->
+    <header class="main-header">
+    <div class="header-left">
+        <img src="{{ url_for('static', filename='pics/logo.png') }}" class="logo" alt="Dribble Logo">
+    </div>
+
+    <div class="header-center">
+        <div class="header-title">Dribble - AI Interview Bot</div>
+        <div class="header-quote">Speak • Analyze • Improve</div>
+    </div>
+
+    <div class="header-right">
+        <a href="/dashboard" class="nav-btn">Home</a>
+        <a href="/latency" class="nav-btn">Latency Benchmark</a>
+        <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+</header>
+
+
+
+
+    <!-- TOKEN BAR -->
+    <div class="token-bar">
+        <p><b>Session Token:</b> {{ token }}</p>
+        <p><b>User:</b> {{ username }} | <b>Role:</b> {{ role }}</p>
+        <p class="expiry-text">⚠ Token expires in 5 minutes</p>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <div class="dashboard-container">
+
+        <!-- LEFT PANEL -->
+        <div class="left-panel">
+            <h2>Start Interview</h2>
+            <p>Click below to begin answering interview questions.</p>
+
+            <a href="/interview" class="start-btn">▶ Start Interview</a>
+        </div>
+
+        <!-- RIGHT PANEL -->
+        <div class="right-panel">
+            <h2>Your Answer History</h2>
+
+            {% if history|length == 0 %}
+                <p class="no-history">No Answers Found</p>
+            {% else %}
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Category</th>
+                            <th>Question</th>
+                            <th>Fluency</th>
+                            <th>View</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for item in history %}
+                        <tr>
+                            <td>{{ item.timestamp }}</td>
+                            <td>{{ item.category }}</td>
+                            <td>{{ item.question }}</td>
+                            <td>
+                                <span class="fluency-tag">{{ item.fluency_label }}</span>
+                            </td>
+                            <td>
+                                <a class="view-link" href="/view_result/{{ item.id }}">View</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>© 2026 Dribble AI Interview Bot | Built for Hackathon Demo | CPU-only AI Pipeline</p>
+    </footer>
+
+</body>
+</html>

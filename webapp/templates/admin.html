@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dribble - Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<header class="main-header">
+    <div class="header-left">
+        <img src="{{ url_for('static', filename='pics/logo.png') }}" class="logo" alt="Dribble Logo">
+    </div>
+
+    <div class="header-center">
+        <div class="header-title">Dribble - AI Interview Bot</div>
+        <div class="header-quote">Speak • Analyze • Improve</div>
+    </div>
+
+    <div class="header-right">
+        <a href="/dashboard" class="nav-btn">Home</a>
+        <a href="/latency" class="nav-btn">Latency Benchmark</a>
+
+        {% if session.get("role") == "admin" %}
+        <a href="/admin" class="nav-btn">Admin</a>
+        {% endif %}
+
+        <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+</header>
+
+
+<div class="token-bar">
+    <p><b>Token:</b> {{ token }}</p>
+</div>
+
+<div class="container">
+    <div class="card">
+        <h2>All Users Interview History</h2>
+
+        {% if history|length == 0 %}
+            <div class="no-data">No Answers Found</div>
+        {% else %}
+        <table class="history-table">
+            <tr>
+                <th>Username</th>
+                <th>Timestamp</th>
+                <th>Category</th>
+                <th>Question</th>
+                <th>Fluency</th>
+                <th>View</th>
+            </tr>
+
+            {% for item in history %}
+            <tr>
+                <td>{{ item.username }}</td>
+                <td>{{ item.timestamp }}</td>
+                <td>{{ item.category }}</td>
+                <td>{{ item.question }}</td>
+                <td><span class="fluency-tag">{{ item.fluency_label }}</span></td>
+                <td>
+                    <a class="view-link" href="/view/{{ item.id }}">View</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+    </div>
+</div>
+
+<footer>
+    <p>© 2026 Dribble AI Interview Bot | Hackathon Project</p>
+</footer>
+
+</body>
+</html>

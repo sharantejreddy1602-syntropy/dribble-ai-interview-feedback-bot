@@ -1,0 +1,34 @@
+[
+    {
+        "username": "user",
+        "timestamp": "2026-02-13 12:10:35",
+        "category": "HR",
+        "question": "Tell me about yourself.",
+        "fluency_label": "Poor",
+        "total_latency": 15.14
+    },
+    {
+        "id": "44b61f76-3e3d-413c-9dac-fd8c52d04f5b",
+        "username": "user",
+        "timestamp": "2026-02-13 13:08:48",
+        "category": "HR",
+        "question": "Tell me about yourself.",
+        "fluency_label": "Poor"
+    },
+    {
+        "id": "1b6ddeef-2ba3-4496-a736-11287719ffd8",
+        "username": "user",
+        "timestamp": "2026-02-13 15:19:50",
+        "category": "HR",
+        "question": "Tell me about yourself.",
+        "fluency_label": "Good"
+    },
+    {
+        "id": "cba6b967-6674-4a09-bee6-54dd5d5f4e69",
+        "username": "user",
+        "timestamp": "2026-02-15 00:36:56",
+        "category": "HR",
+        "question": "Why do you want this job?",
+        "fluency_label": "Good"
+    }
+]

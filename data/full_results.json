@@ -1,0 +1,128 @@
+[
+    {
+        "transcript": " Halo, my name is Sharon and I am participating in a hackathon.",
+        "analysis": {
+            "word_count": 12,
+            "filler_stats": {
+                "um": 0,
+                "uh": 0,
+                "like": 0,
+                "actually": 0,
+                "basically": 0,
+                "you know": 0,
+                "total_fillers": 0
+            }
+        },
+        "features": {
+            "word_count": 12,
+            "total_fillers": 0,
+            "unique_word_ratio": 1.0,
+            "avg_word_length": 4.25,
+            "sentence_count": 1,
+            "duration_sec": 6.59,
+            "speaking_rate_wps": 1.82,
+            "whisper_latency_sec": 8.02
+        },
+        "fluency_label": "Poor",
+        "llm_feedback": "Here's the evaluation of your answer:\n\n1.  **Overall Rating:** 4/10\n\n2.  **Strengths:**\n    *   Clearly states name.\n    *   Identifies a current activity (participating in a hackathon).\n    *   The answer is concise.\n\n3.  **Weaknesses:**\n    *   Uses an informal greeting (\"Halo\") which lacks professionalism for an interview setting.\n    *   Fails to elaborate on *why* participating in a hackathon is relevant, or what skills she's gaining/using.\n    *   Misses the opportunity to connect her current activity to potential skills or experiences beneficial for an HR role.\n\n4.  **Suggestions to Improve:**\n    *   Begin with a more formal and professional greeting (e.g., \"Hello,\" \"Good morning/afternoon\").\n    *   Briefly explain the nature or purpose of the hackathon, and your role or contribution.\n    *   Connect the hackathon experience to transferable skills relevant to HR, such as problem-solving, teamwork, project management, innovation, or adapting to new challenges.\n\n5.  **A sample improved answer:**\n    \"Hello, my name is Sharon. I'm currently participating in a hackathon where I'm collaborating with a team to develop innovative solutions, which is enhancing my problem-solving and teamwork skills \u2013 qualities I believe are highly valuable in any professional environment.\"",
+        "latency_report": {
+            "whisper_latency_sec": 8.02,
+            "feature_extraction_sec": 0.1736,
+            "ml_latency_sec": 0.1858,
+            "llm_latency_sec": 5.94,
+            "total_latency_sec": 14.32
+        },
+        "cuda_available": false,
+        "device_used": "cpu",
+        "id": "44b61f76-3e3d-413c-9dac-fd8c52d04f5b",
+        "category": "HR",
+        "question": "Tell me about yourself.",
+        "timestamp": "2026-02-13 13:08:48",
+        "username": "user",
+        "pdf_file": "report_user_1770968328.pdf"
+    },
+    {
+        "transcript": " Hi my name is Tanmeh Vrma and I am a recent graduate with a degree in BTEC IT from PIT value. During my studies I developed a strong foundation in Python and C++ and completed internship at Google. I am very eager to apply my skills to a dynamic team and I am particularly interested in how your company is innovating in the industry.",
+        "analysis": {
+            "word_count": 64,
+            "filler_stats": {
+                "um": 0,
+                "uh": 0,
+                "like": 0,
+                "actually": 0,
+                "basically": 0,
+                "you know": 0,
+                "total_fillers": 0
+            }
+        },
+        "features": {
+            "word_count": 64,
+            "total_fillers": 0,
+            "unique_word_ratio": 0.719,
+            "avg_word_length": 4.23,
+            "sentence_count": 3,
+            "duration_sec": 23.9,
+            "speaking_rate_wps": 2.68,
+            "whisper_latency_sec": 12.82
+        },
+        "fluency_label": "Good",
+        "llm_feedback": "Here's an evaluation of your answer:\n\n1.  **Overall Rating** (out of 10)\n    5/10\n\n2.  **Strengths**\n    *   **Clear Introduction:** Candidate states their name and academic background directly.\n    *   **Relevant Technical Skills:** Highlights specific programming languages (Python, C++) that are valuable in IT roles.\n    *   **High-Profile Experience:** Mentions an internship at Google, which is a significant and impressive achievement.\n\n3.  **Weaknesses**\n    *   **Unclear Institution Name:** \"PIT value\" sounds informal and lacks the full, professional name of the institution, making it difficult for the interviewer to recognize.\n    *   **Under-leveraged Internship:** The Google internship is a major asset but is mentioned without any context, specific responsibilities, or accomplishments, significantly diminishing its impact.\n    *   **Generic Motivation:** Expressions of eagerness and interest in company innovation are generic and lack a specific connection to the role, the company's actual work, or the candidate's personal skills.\n\n4.  **Suggestions to Improve**\n    *   **Provide Institutional Clarity:** Clearly state the full, professional name of the institution and, if relevant, mention a key area of study or project from the degree.\n    *   **Detail Internship Impact:** Briefly describe a key responsibility or a quantifiable achievement from the Google internship to demonstrate practical application of skills.\n    *   **Tailor Enthusiasm:** Research the company's specific projects or innovations and explicitly connect your skills and interests to those areas to show genuine and informed motivation.\n\n5.  **A sample improved answer**\n    \"Hello, my name is Tanmeh Vrma. I recently graduated with a BTEC IT degree from [Full Name of Institution], where I gained a strong foundation in Python and C++. I further developed these skills during my internship at Google, where I [mention a specific achievement or project]. I'm eager to apply my technical expertise to a dynamic team and am particularly impressed by your company's innovative work in [mention a specific area/project].\"",
+        "latency_report": {
+            "whisper_latency_sec": 12.82,
+            "feature_extraction_sec": 0.1888,
+            "ml_latency_sec": 0.0461,
+            "llm_latency_sec": 8.65,
+            "total_latency_sec": 21.71
+        },
+        "cuda_available": false,
+        "device_used": "cpu",
+        "id": "1b6ddeef-2ba3-4496-a736-11287719ffd8",
+        "category": "HR",
+        "question": "Tell me about yourself.",
+        "timestamp": "2026-02-13 15:19:50",
+        "username": "user",
+        "pdf_file": "report_user_1770976190.pdf"
+    },
+    {
+        "transcript": " Hi my name is Tanmeh Varma and I am a recent graduate with a degree in BTEC IT from PIT. During my studies I developed a strong foundation in Python and C++ and completed internship at Google. I am very eager to apply my skills to a dynamic team and I am particularly interested in how your company is innovating in the industry.",
+        "analysis": {
+            "word_count": 63,
+            "filler_stats": {
+                "um": 0,
+                "uh": 0,
+                "like": 0,
+                "actually": 0,
+                "basically": 0,
+                "you know": 0,
+                "total_fillers": 0
+            }
+        },
+        "features": {
+            "word_count": 63,
+            "total_fillers": 0,
+            "unique_word_ratio": 0.714,
+            "avg_word_length": 4.24,
+            "sentence_count": 3,
+            "duration_sec": 23.9,
+            "speaking_rate_wps": 2.64,
+            "whisper_latency_sec": 23.71
+        },
+        "fluency_label": "Good",
+        "llm_feedback": "Here's an assessment of the candidate's answer:\n\n1.  **Overall Rating** (out of 10)\n    5/10\n\n2.  **Strengths**\n    *   Clearly introduces themselves and states their academic background.\n    *   Identifies relevant technical skills (Python, C++).\n    *   Expresses enthusiasm and a general interest in the company's innovation.\n\n3.  **Weaknesses**\n    *   Fails to elaborate on the significant \"internship at Google,\" missing a key opportunity to showcase experience and impact.\n    *   Lacks specific examples or quantifiable achievements from studies or the internship.\n    *   The stated interest in the company is generic, not tailored to specific company projects or values.\n\n4.  **Suggestions to Improve**\n    *   **Elaborate on the Internship:** Provide details about the role, key responsibilities, specific projects, and quantifiable results from the Google internship.\n    *   **Connect Skills to Role/Company:** Research the specific company and role, then articulate how your skills and experiences directly align with their needs and innovations.\n    *   **Quantify Achievements:** Instead of just listing skills, provide a brief example of how you applied Python or C++ to solve a problem or achieve a goal, ideally with a measurable outcome.\n\n5.  **A sample improved answer** (short)\n    \"Hi, I'm Tanmeh Varma, a recent BTEC IT graduate from PIT, where I gained a strong foundation in Python and C++, demonstrated through projects like [briefly mention a key project]. I also completed a Software Engineering internship at Google, where I [mention a specific achievement, e.g., optimized a backend process reducing latency by 15%]. I'm now keen to apply these practical skills to a forward-thinking team like yours, particularly intrigued by your advancements in [mention a specific company innovation/technology].\"",
+        "latency_report": {
+            "whisper_latency_sec": 23.71,
+            "feature_extraction_sec": 0.3076,
+            "ml_latency_sec": 0.416,
+            "llm_latency_sec": 9.11,
+            "total_latency_sec": 33.54
+        },
+        "cuda_available": false,
+        "device_used": "cpu",
+        "id": "cba6b967-6674-4a09-bee6-54dd5d5f4e69",
+        "category": "HR",
+        "question": "Why do you want this job?",
+        "timestamp": "2026-02-15 00:36:56",
+        "username": "user",
+        "pdf_file": "report_user_1771096016.pdf"
+    }
+]

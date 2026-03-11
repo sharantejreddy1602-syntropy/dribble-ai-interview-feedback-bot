@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Latency Benchmark Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<header class="main-header">
+    <div class="header-left">
+        <img src="{{ url_for('static', filename='pics/logo.png') }}" class="logo" alt="Dribble Logo">
+    </div>
+
+    <div class="header-center">
+        <div class="header-title">Dribble - AI Interview Bot</div>
+        <div class="header-quote">Speak • Analyze • Improve</div>
+    </div>
+
+    <div class="header-right">
+        <a href="/dashboard" class="nav-btn">Home</a>
+        <a href="/latency" class="nav-btn">Latency Benchmark</a>
+
+        {% if session.get("role") == "admin" %}
+        <a href="/admin" class="nav-btn">Admin</a>
+        {% endif %}
+
+        <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+</header>
+
+
+<div class="container">
+
+    <div class="token-box">
+        Token: {{ token }}
+    </div>
+
+    <div class="navbar">
+        <a href="/dashboard" class="btn">Home</a>
+        <a href="/interview" class="btn">Start Interview</a>
+        <a href="/logout" class="btn">Logout</a>
+    </div>
+
+    <div class="card">
+        <h2>Latency Benchmark Results (10 Runs - CPU Only)</h2>
+
+        <table class="history-table">
+            <tr>
+                <th>Run</th>
+                <th>Whisper (sec)</th>
+                <th>Feature Extraction (sec)</th>
+                <th>ML Prediction (sec)</th>
+                <th>Total Pipeline (sec)</th>
+            </tr>
+
+            {% for i in range(latency_result["runs"]) %}
+            <tr>
+                <td>{{ i+1 }}</td>
+                <td>{{ latency_result["whisper_latencies_sec"][i] }}</td>
+                <td>{{ latency_result["feature_latencies_sec"][i] }}</td>
+                <td>{{ latency_result["ml_latencies_sec"][i] }}</td>
+                <td><b>{{ latency_result["total_latencies_sec"][i] }}</b></td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <br>
+
+        <h3>Summary (Avg / Min / Max)</h3>
+
+        <table class="history-table">
+            <tr>
+                <th>Metric</th>
+                <th>Average</th>
+                <th>Minimum</th>
+                <th>Maximum</th>
+            </tr>
+
+            <tr>
+                <td><b>Whisper</b></td>
+                <td>{{ latency_result["whisper_avg_sec"] }}</td>
+                <td>{{ latency_result["whisper_min_sec"] }}</td>
+                <td>{{ latency_result["whisper_max_sec"] }}</td>
+            </tr>
+
+            <tr>
+                <td><b>Feature Extraction</b></td>
+                <td>{{ latency_result["feature_avg_sec"] }}</td>
+                <td>{{ latency_result["feature_min_sec"] }}</td>
+                <td>{{ latency_result["feature_max_sec"] }}</td>
+            </tr>
+
+            <tr>
+                <td><b>ML Prediction</b></td>
+                <td>{{ latency_result["ml_avg_sec"] }}</td>
+                <td>{{ latency_result["ml_min_sec"] }}</td>
+                <td>{{ latency_result["ml_max_sec"] }}</td>
+            </tr>
+
+            <tr>
+                <td><b>Total Pipeline</b></td>
+                <td><b>{{ latency_result["total_avg_sec"] }}</b></td>
+                <td>{{ latency_result["total_min_sec"] }}</td>
+                <td>{{ latency_result["total_max_sec"] }}</td>
+            </tr>
+        </table>
+
+        <br>
+
+        {% if pdf_file %}
+        <a href="/download/{{ pdf_file }}" class="btn">Download Latency PDF Report</a>
+        {% endif %}
+    </div>
+
+</div>
+
+<footer>
+    © 2026 Dribble Interview Bot | Built for Hackathon Demo
+</footer>
+
+</body>
+</html>

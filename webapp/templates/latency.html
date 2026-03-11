@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dribble - Latency Benchmark</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<header class="main-header">
+    <div class="header-left">
+        <img src="{{ url_for('static', filename='pics/logo.png') }}" class="logo" alt="Dribble Logo">
+    </div>
+
+    <div class="header-center">
+        <div class="header-title">Dribble - AI Interview Bot</div>
+        <div class="header-quote">Speak • Analyze • Improve</div>
+    </div>
+
+    <div class="header-right">
+        <a href="/dashboard" class="nav-btn">Home</a>
+        <a href="/latency" class="nav-btn">Latency Benchmark</a>
+
+        {% if session.get("role") == "admin" %}
+        <a href="/admin" class="nav-btn">Admin</a>
+        {% endif %}
+
+        <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+</header>
+
+
+<div class="container">
+
+    <div class="token-box">
+        Token: <b>{{ token }}</b> | Session Expiry: <b>5 Minutes</b>
+    </div>
+
+    <div class="navbar">
+        <a class="btn" href="/dashboard">Home</a>
+        <a class="btn" href="/interview">Start Interview</a>
+        <a class="btn" href="/logout">Logout</a>
+    </div>
+
+    <div class="card">
+        <h2 style="color:#FF6F00;">Latency Benchmark (10 Runs)</h2>
+
+        <p>
+            Upload an audio/video file. The system will run Whisper + Feature Extraction + ML
+            for 10 runs and report latency statistics.  
+            <b>(LLM excluded to avoid quota exhaustion)</b>
+        </p>
+
+        <form method="POST" action="/latency" enctype="multipart/form-data">
+            <label><b>Upload File:</b></label>
+            <input type="file" name="audio" accept=".mp4,.wav,.mp3,.m4a" required>
+
+            <button type="submit">Run Benchmark</button>
+        </form>
+    </div>
+
+</div>
+
+<footer>
+    © 2026 Dribble Interview Bot | Latency Benchmark Module
+</footer>
+
+</body>
+</html>

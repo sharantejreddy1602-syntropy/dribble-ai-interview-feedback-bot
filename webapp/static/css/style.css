@@ -1,0 +1,885 @@
+/* ===========================
+   GLOBAL STYLES
+=========================== */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #FFF3E0; /* light orange */
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    width: 85%;
+    margin: auto;
+    padding: 20px;
+}
+
+/* ===========================
+   HEADER & FOOTER
+=========================== */
+header {
+    background-color: #FF6F00;
+    padding: 15px 25px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+header .subtitle {
+    margin: 0;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+footer {
+    margin-top: 50px;
+    background-color: #FF6F00;
+    color: white;
+    text-align: center;
+    padding: 12px;
+    font-size: 14px;
+}
+
+/* ===========================
+   BUTTONS
+=========================== */
+button, .btn {
+    background-color: #FF6F00;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    display: inline-block;
+    transition: 0.2s;
+}
+
+button:hover, .btn:hover {
+    background-color: #E65100;
+}
+
+.logout-btn {
+    background-color: #D32F2F !important;
+}
+
+.logout-btn:hover {
+    background-color: #B71C1C !important;
+}
+
+/* ===========================
+   FORMS
+=========================== */
+input, select {
+    width: 95%;
+    padding: 12px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+/* ===========================
+   CARD / BOX
+=========================== */
+.card {
+    background: white;
+    border-radius: 14px;
+    padding: 25px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
+    margin-top: 20px;
+}
+
+/* ===========================
+   LOGIN PAGE
+=========================== */
+.login-box {
+    width: 420px;
+    margin: 70px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    border: 3px solid #FF6F00;
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.demo-box {
+    background: #FFF8E1;
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 5px solid #FF6F00;
+    margin-top: 15px;
+    font-size: 14px;
+    text-align: left;
+}
+
+/* ===========================
+   NAVBAR BUTTON GROUP
+=========================== */
+.nav-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-buttons a {
+    background: white;
+    color: #FF6F00;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.nav-buttons a:hover {
+    background: #FFE0B2;
+}
+
+/* ===========================
+   TOKEN BAR
+=========================== */
+.token-bar {
+    background: #FFF8E1;
+    border-left: 6px solid #FF6F00;
+    padding: 12px 20px;
+    margin: 20px auto;
+    width: 85%;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.token-bar p {
+    margin: 6px 0;
+}
+
+.expiry-text {
+    color: #D32F2F;
+    font-weight: bold;
+}
+
+/* ===========================
+   DASHBOARD LAYOUT
+=========================== */
+.dashboard-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 25px;
+    width: 85%;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.left-panel {
+    width: 25%;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    border: 2px solid #FF6F00;
+    height: fit-content;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.12);
+}
+
+.right-panel {
+    width: 75%;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    border: 2px solid #FF6F00;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.12);
+}
+
+.start-btn {
+    display: inline-block;
+    margin-top: 15px;
+    background: #FF6F00;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.start-btn:hover {
+    background: #E65100;
+}
+
+/* ===========================
+   HISTORY TABLE
+=========================== */
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.history-table th {
+    background: #FF6F00;
+    color: white;
+    padding: 12px;
+    text-align: left;
+    font-size: 15px;
+}
+
+.history-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+}
+
+.no-history, .no-data {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #777;
+    padding: 40px;
+}
+
+.view-link {
+    text-decoration: none;
+    background: #FF6F00;
+    padding: 6px 12px;
+    color: white;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.view-link:hover {
+    background: #E65100;
+}
+
+/* ===========================
+   FLUENCY TAG
+=========================== */
+.fluency-tag {
+    background: #FFF8E1;
+    padding: 5px 10px;
+    border-radius: 8px;
+    border: 1px solid #FF6F00;
+    font-weight: bold;
+    color: #FF6F00;
+}
+
+/* ===========================
+   CATEGORY GRID (INTERVIEW PAGE)
+=========================== */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.category-box {
+    background: white;
+    padding: 18px;
+    border-radius: 12px;
+    border: 2px solid #FF6F00;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.category-box:hover {
+    background-color: #FFE0B2;
+}
+
+.category-box.active {
+    background-color: #FF6F00;
+    color: white;
+}
+
+/* ===========================
+   QUESTION DISPLAY BOX
+=========================== */
+.question-box {
+    background: #FFF8E1;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+    border-left: 6px solid #FF6F00;
+    font-size: 18px;
+}
+
+/* ===========================
+   PROGRESS BAR
+=========================== */
+.progress-bar {
+    background: #ddd;
+    border-radius: 10px;
+    height: 18px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 18px;
+    background: #FF6F00;
+    width: 0%;
+    transition: 0.3s;
+}
+
+/* ===========================
+   QUESTION NAVIGATION (ARROWS)
+=========================== */
+.question-nav {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.question-nav button {
+    width: 120px;
+}
+
+/* ===========================
+   REPORT PAGE STYLING
+=========================== */
+.report-box {
+    background: white;
+    border-radius: 14px;
+    padding: 25px;
+    margin-top: 20px;
+    border: 2px solid #FF6F00;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.12);
+}
+
+.report-box h2 {
+    color: #FF6F00;
+}
+
+/* ===========================
+   MOBILE RESPONSIVE
+=========================== */
+@media screen and (max-width: 900px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .left-panel, .right-panel {
+        width: 100%;
+    }
+
+    .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .login-box {
+        width: 90%;
+    }
+}
+.section-title {
+    font-size: 22px;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #E65100;
+    border-left: 6px solid #FF6F00;
+    padding-left: 12px;
+}
+
+.feedback-card {
+    background: linear-gradient(135deg, #fff8e1, #ffe0b2);
+    border-radius: 15px;
+    padding: 20px;
+    border: 2px solid #FF6F00;
+    box-shadow: 0px 6px 15px rgba(0,0,0,0.15);
+    margin-top: 15px;
+}
+
+.feedback-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 12px;
+    border-bottom: 2px dashed #FF6F00;
+    margin-bottom: 15px;
+}
+
+.feedback-header h3 {
+    margin: 0;
+    font-size: 20px;
+    color: #BF360C;
+    font-weight: bold;
+}
+
+.feedback-icon {
+    font-size: 30px;
+    background: #FF6F00;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 50%;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+}
+
+.feedback-body {
+    padding-top: 10px;
+}
+
+.feedback-text {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 15px;
+    line-height: 1.6;
+    font-family: "Courier New", monospace;
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    border-left: 6px solid #FF6F00;
+    color: #333;
+    box-shadow: inset 0px 0px 8px rgba(0,0,0,0.08);
+}
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #FFF3E0;
+    color: #333;
+
+    /* Important: full height layout */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Bigger header */
+header {
+    background-color: #FF6F00;
+    padding: 25px;
+    text-align: left;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* Footer always at bottom */
+footer {
+    background-color: #FF6F00;
+    color: white;
+    text-align: center;
+    padding: 18px;
+    font-size: 15px;
+    margin-top: auto;   /* pushes footer to bottom */
+}
+
+/* Center login box in middle */
+.login-page {
+    flex: 1; /* takes remaining space */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Login box */
+.login-box {
+    width: 420px;
+    background: white;
+    padding: 30px;
+    border-radius: 14px;
+    border: 3px solid #FF6F00;
+    box-shadow: 0px 6px 18px rgba(0,0,0,0.2);
+    text-align: center;
+}
+.history-table td b {
+    color: #FF6F00;
+}
+/* Header Improvements */
+header {
+    background-color: #FF6F00;
+    padding: 22px;
+    color: white;
+    text-align: left;
+}
+
+.header-title {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.header-quote {
+    font-size: 16px;
+    font-style: italic;
+    margin-top: 5px;
+    color: #FFE0B2;
+}
+
+/* Login Page Centering */
+.login-page {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Login Box Hover Effect */
+.login-box {
+    width: 420px;
+    background: white;
+    padding: 30px;
+    border-radius: 14px;
+    border: 3px solid #FF6F00;
+    box-shadow: 0px 6px 18px rgba(0,0,0,0.2);
+    text-align: center;
+
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.login-box:hover {
+    transform: scale(1.03);
+    box-shadow: 0px 10px 22px rgba(0,0,0,0.28);
+}
+
+/* Labels to the Left */
+.form-label {
+    display: block;
+    text-align: left;
+    font-weight: bold;
+    margin-top: 12px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+/* Button Hover Effect */
+button {
+    background-color: #FF6F00;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    margin-top: 10px;
+
+    transition: background-color 0.25s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #E65100;
+    transform: translateY(-2px);
+}
+/* HEADER STYLE */
+.main-header {
+    background-color: #FF6F00;
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Left Logo */
+.header-left {
+    width: 20%;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 60px;
+    width: auto;
+    border-radius: 8px;
+}
+
+/* Center Title + Quote */
+.header-center {
+    width: 60%;
+    text-align: center;
+}
+
+.header-title {
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+}
+
+.header-quote {
+    font-size: 15px;
+    font-style: italic;
+    margin-top: 4px;
+    color: #FFE0B2;
+}
+
+/* Right side empty space (for symmetry) */
+.header-right {
+    width: 20%;
+}
+
+/* FOOTER */
+footer {
+    background-color: #FF6F00;
+    color: white;
+    text-align: center;
+    padding: 18px;
+    font-size: 14px;
+    width: 100%;
+}
+
+/* LOGIN PAGE CENTERING */
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 160px);
+}
+
+/* LOGIN BOX HOVER EFFECT */
+.login-box {
+    width: 420px;
+    background: white;
+    padding: 30px;
+    border-radius: 14px;
+    border: 3px solid #FF6F00;
+    box-shadow: 0px 6px 18px rgba(0,0,0,0.2);
+    text-align: center;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.login-box:hover {
+    transform: scale(1.03);
+    box-shadow: 0px 10px 22px rgba(0,0,0,0.28);
+}
+
+/* LABELS LEFT */
+.form-label {
+    display: block;
+    text-align: left;
+    font-weight: bold;
+    margin-top: 12px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+/* BUTTON EFFECT */
+button {
+    background-color: #FF6F00;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    margin-top: 10px;
+    transition: background-color 0.25s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #E65100;
+    transform: translateY(-2px);
+}
+/* HEADER STYLE */
+.main-header {
+    background-color: #FF6F00;
+    padding: 25px 35px;   /* increased height */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Left Logo */
+.header-left {
+    width: 20%;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 85px;   /* increased logo size */
+    width: auto;
+    border-radius: 10px;
+}
+
+/* Center Title + Quote */
+.header-center {
+    width: 60%;
+    text-align: center;
+}
+
+.header-title {
+    font-size: 34px;   /* slightly bigger title */
+    font-weight: bold;
+    color: white;
+}
+
+.header-quote {
+    font-size: 16px;
+    font-style: italic;
+    margin-top: 6px;
+    color: #FFE0B2;
+}
+
+/* Right side empty space (for symmetry) */
+.header-right {
+    width: 20%;
+}
+/* HEADER STYLE */
+.main-header {
+    background-color: #FF6F00;
+    padding: 25px 35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Left empty space for balance */
+.header-left {
+    width: 20%;
+}
+
+/* Center Title + Quote */
+.header-center {
+    width: 60%;
+    text-align: center;
+}
+
+.header-title {
+    font-size: 34px;
+    font-weight: bold;
+    color: white;
+}
+
+.header-quote {
+    font-size: 16px;
+    font-style: italic;
+    margin-top: 6px;
+    color: #FFE0B2;
+}
+
+/* Right Logo */
+.header-right {
+    width: 20%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.logo {
+    height: 105px;
+    width: auto;
+    border-radius: 10px;
+}
+/* HEADER STYLE */
+.main-header {
+    background-color: #FF6F00;
+    padding: 25px 35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Left Logo */
+.header-left {
+    width: 20%;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 75px;
+    width: auto;
+    border-radius: 10px;
+}
+
+/* Center Title + Quote */
+.header-center {
+    width: 60%;
+    text-align: center;
+}
+
+.header-title {
+    font-size: 34px;
+    font-weight: bold;
+    color: white;
+}
+
+.header-quote {
+    font-size: 16px;
+    font-style: italic;
+    margin-top: 6px;
+    color: #FFE0B2;
+}
+
+/* Right empty space for balance */
+.header-right {
+    width: 20%;
+}
+/* HEADER RIGHT NAV BUTTONS */
+.header-right {
+    width: 25%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+}
+
+/* NORMAL NAV BUTTON */
+/* NORMAL NAV BUTTON (SMALL) */
+.nav-btn {
+    background: white;
+    color: #FF6F00;
+    padding: 6px 12px;          /* reduced */
+    border-radius: 8px;         /* reduced */
+    font-weight: bold;
+    font-size: 14px;            /* reduced */
+    text-decoration: none;
+    border: 2px solid white;
+    transition: 0.25s ease;
+    display: inline-block;
+    line-height: 1.2;
+}
+
+.nav-btn:hover {
+    background: #FFE0B2;
+    color: #E65100;
+}
+
+/* LOGOUT BUTTON (SMALL DARK RED) */
+.logout-btn {
+    background: #B71C1C;
+    color: white;
+    padding: 6px 12px;          /* reduced */
+    border-radius: 8px;         /* reduced */
+    font-weight: bold;
+    font-size: 14px;            /* reduced */
+    text-decoration: none;
+    border: 2px solid #B71C1C;
+    transition: 0.25s ease;
+    display: inline-block;
+    line-height: 1.2;
+}
+
+.logout-btn:hover {
+    background: #8E0000;
+    border-color: #8E0000;
+}
+
+/* FIX: Prevent footer from hiding content */
+.container {
+    padding-bottom: 120px;  /* space for footer */
+}
+footer {
+    background-color: #FF6F00;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    font-size: 14px;
+    margin-top: 50px;
+    width: 100%;
+    position: relative;
+}

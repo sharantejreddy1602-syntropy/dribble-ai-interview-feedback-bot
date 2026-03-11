@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dribble - View Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<header>
+    <div>
+        <h1>Dribble</h1>
+        <p class="subtitle">View Previous Result</p>
+    </div>
+
+    <div class="nav-buttons">
+        <a href="/dashboard">Home</a>
+        <a href="/interview">Interview</a>
+        <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+</header>
+
+<div class="token-bar">
+    <p><b>Token:</b> {{ token }}</p>
+</div>
+
+<div class="container">
+
+    <div class="report-box">
+        <h2>Saved Answer Result</h2>
+
+        <p><b>Username:</b> {{ result.username }}</p>
+        <p><b>Category:</b> {{ result.category }}</p>
+        <p><b>Question:</b> {{ result.question }}</p>
+        <p><b>Timestamp:</b> {{ result.timestamp }}</p>
+
+        <hr>
+
+        <h3>Transcript</h3>
+        <p>{{ result.transcript }}</p>
+
+        <hr>
+
+        <h3>Fluency Prediction</h3>
+        <p><span class="fluency-tag">{{ result.fluency_label }}</span></p>
+
+        <hr>
+
+        <h3>Speech Analysis</h3>
+        <p><b>Word Count:</b> {{ result.analysis.word_count }}</p>
+        <p><b>Total Fillers:</b> {{ result.analysis.filler_stats.total_fillers }}</p>
+
+        <hr>
+
+        <h3>Latency Report</h3>
+        <p><b>Whisper:</b> {{ result.latency_report.whisper_latency_sec }}</p>
+        <p><b>Feature Extraction:</b> {{ result.latency_report.feature_extraction_sec }}</p>
+        <p><b>ML:</b> {{ result.latency_report.ml_latency_sec }}</p>
+        <p><b>LLM:</b> {{ result.latency_report.llm_latency_sec }}</p>
+        <p><b>Total:</b> {{ result.latency_report.total_latency_sec }}</p>
+
+        <hr>
+
+        <h2 class="section-title">LLM Feedback</h2>
+
+<div class="feedback-card">
+    <div class="feedback-header">
+        <span class="feedback-icon">🤖</span>
+        <h3>AI Evaluation Report</h3>
+    </div>
+
+    <div class="feedback-body">
+        <pre class="feedback-text">{{ result.llm_feedback }}</pre>
+    </div>
+</div>
+
+
+        <hr>
+
+        {% if result.pdf_file %}
+            <a class="btn" href="/download/{{ result.pdf_file }}">Download PDF</a>
+        {% endif %}
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2026 Dribble AI Interview Bot | Hackathon Project</p>
+</footer>
+
+</body>
+</html>

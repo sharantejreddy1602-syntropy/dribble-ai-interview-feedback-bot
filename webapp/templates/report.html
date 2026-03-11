@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dribble - Report</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<header class="main-header">
+    <div class="header-left">
+        <img src="{{ url_for('static', filename='pics/logo.png') }}" class="logo" alt="Dribble Logo">
+    </div>
+
+    <div class="header-center">
+        <div class="header-title">Dribble - AI Interview Bot</div>
+        <div class="header-quote">Speak • Analyze • Improve</div>
+    </div>
+
+    <div class="header-right">
+        <a href="/dashboard" class="nav-btn">Home</a>
+        <a href="/latency" class="nav-btn">Latency Benchmark</a>
+
+        {% if session.get("role") == "admin" %}
+        <a href="/admin" class="nav-btn">Admin</a>
+        {% endif %}
+
+        <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+</header>
+
+
+<div class="token-bar">
+    <p><b>Token:</b> {{ token }}</p>
+</div>
+
+<div class="container">
+
+    <div class="report-box">
+        <h2>Interview Analysis Report</h2>
+
+        <p><b>Category:</b> {{ result.category }}</p>
+        <p><b>Question:</b> {{ result.question }}</p>
+        <p><b>Timestamp:</b> {{ result.timestamp }}</p>
+
+        <hr>
+
+        <h3>Transcript</h3>
+        <p>{{ result.transcript }}</p>
+
+        <hr>
+
+        <h3>Fluency Prediction</h3>
+        <p><span class="fluency-tag">{{ result.fluency_label }}</span></p>
+
+        <hr>
+
+        <h3>Speech Analysis</h3>
+        <p><b>Word Count:</b> {{ result.analysis.word_count }}</p>
+        <p><b>Total Fillers:</b> {{ result.analysis.filler_stats.total_fillers }}</p>
+
+        <hr>
+
+        <h3>Latency Report</h3>
+        <p><b>Whisper Latency:</b> {{ result.latency_report.whisper_latency_sec }} sec</p>
+        <p><b>Feature Extraction:</b> {{ result.latency_report.feature_extraction_sec }} sec</p>
+        <p><b>ML Latency:</b> {{ result.latency_report.ml_latency_sec }} sec</p>
+        <p><b>LLM Latency:</b> {{ result.latency_report.llm_latency_sec }} sec</p>
+        <p><b>Total Latency:</b> {{ result.latency_report.total_latency_sec }} sec</p>
+
+        <hr>
+
+        <h3>CPU Proof</h3>
+        <p><b>CUDA Available:</b> {{ result.cuda_available }}</p>
+        <p><b>Device Used:</b> {{ result.device_used }}</p>
+
+        <hr>
+
+        <h2 class="section-title">LLM Feedback</h2>
+
+<div class="feedback-card">
+    <div class="feedback-header">
+        <span class="feedback-icon">🤖</span>
+        <h3>AI Evaluation Report</h3>
+    </div>
+
+    <div class="feedback-body">
+        <pre class="feedback-text">{{ result.llm_feedback }}</pre>
+    </div>
+</div>
+
+
+        <hr>
+
+        <a class="btn" href="/download/{{ pdf_file }}">Download PDF Report</a>
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2026 Dribble AI Interview Bot | Hackathon Project</p>
+</footer>
+
+</body>
+</html>
