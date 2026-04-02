@@ -1,0 +1,291 @@
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --white: #ffffff;
+  --off-white: #e8e8e8;
+  --silver: #a0a0a0;
+}
+
+html, body {
+  height: 100%;
+  background: #000;
+  font-family: 'Outfit', sans-serif;
+  overflow: hidden;
+}
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  background: url("../pics/background.jpeg") center center / cover no-repeat;
+  z-index: 0;
+}
+
+/* ── NAVBAR ── */
+nav {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 28px 52px;
+}
+
+.nav__logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  animation: fadeDown 0.9s ease both;
+}
+
+.logo__icon {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 6px rgba(200,200,200,0.3));
+}
+
+.logo__text {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #c8c8c8;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+}
+
+/* ── RIGHT CONTENT ── */
+.hero__content {
+  position: relative;
+  z-index: 5;
+  margin-left: auto;
+  max-width: 520px;
+  padding-right: 72px;
+  text-align: right;
+}
+
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--silver);
+  margin-bottom: 22px;
+  animation: fadeUp 0.8s 0.2s ease both;
+}
+
+.hero__eyebrow::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--silver);
+}
+
+.hero__headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.2rem, 5.5vw, 5rem);
+  line-height: 0.95;
+  letter-spacing: 0.03em;
+  color: var(--white);
+  margin-bottom: 42px;
+  animation: fadeUp 0.8s 0.35s ease both;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.6);
+}
+
+.hero__headline span {
+  display: block;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255,255,255,0.75);
+}
+
+/* ── BUTTONS ── */
+.hero__actions {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-start;
+  animation: fadeUp 0.8s 0.5s ease both;
+}
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 34px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.btn:hover { transform: translateY(-3px); }
+
+/* Primary */
+.btn--primary {
+  background: var(--white);
+  color: #000;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+}
+
+.btn--primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.08);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.btn--primary:hover::after { opacity: 1; }
+.btn--primary:hover { box-shadow: 0 12px 40px rgba(255,255,255,0.25); }
+
+.btn--primary .btn__arrow {
+  font-size: 1rem;
+  transition: transform 0.25s;
+}
+
+.btn--primary:hover .btn__arrow { transform: translateX(4px); }
+
+/* Ghost */
+.btn--ghost {
+  background: transparent;
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.55);
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  backdrop-filter: blur(6px);
+}
+
+.btn--ghost:hover {
+  border-color: rgba(255,255,255,0.9);
+  box-shadow: 0 8px 28px rgba(255,255,255,0.1);
+}
+
+/* ── BOTTOM STATS BAR ── */
+.hero__footer {
+  position: absolute;
+  bottom: 36px;
+  left: 52px;
+  right: 52px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  animation: fadeUp 0.8s 0.85s ease both;
+}
+
+/* ── STAT WHITE BOXES ── */
+.hero__stat {
+  text-align: center;
+  padding: 16px 32px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  transition: background 0.25s ease, transform 0.25s ease;
+  min-width: 140px;
+}
+
+.hero__stat:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-3px);
+}
+
+/* Override individual text-align with centered box layout */
+.hero__stat + .hero__stat { text-align: center; }
+.hero__stat:last-child { text-align: center; }
+
+.stat__num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  color: var(--white);
+  letter-spacing: 0.05em;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.7);
+}
+
+.stat__label {
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--silver);
+  margin-top: 4px;
+}
+
+.hero__footer-divider {
+  flex: 1;
+  height: 1px;
+  background: rgba(255,255,255,0.2);
+  margin: 0 20px;
+}
+
+/* ── SCROLL INDICATOR ── */
+.scroll-hint {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  animation: fadeUp 1s 1s ease both;
+}
+
+.scroll-hint__line {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.6));
+  animation: scrollPulse 2s ease infinite;
+}
+
+/* ── CURSOR GLOW ── */
+.cursor-glow {
+  pointer-events: none;
+  position: fixed;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  transition: transform 0.08s linear;
+}
+
+/* ── KEYFRAMES ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(0.7); transform-origin: top; }
+  50%       { opacity: 1;   transform: scaleY(1);   transform-origin: top; }
+}

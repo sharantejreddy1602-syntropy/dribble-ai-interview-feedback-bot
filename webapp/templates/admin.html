@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dribble — Admin Panel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dancing+Script:wght@700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}"/>
+</head>
+<body>
+
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <!-- ── NAVBAR ── -->
+  <nav>
+    <a href="{{ url_for('index') }}" class="nav__logo">
+      <svg class="logo__icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="22" cy="22" r="20" stroke="#c8c8c8" stroke-width="2.4"/>
+        <path d="M7 14 Q16 20 18 36" stroke="#c8c8c8" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        <path d="M3 24 Q14 18 38 26" stroke="#c8c8c8" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        <path d="M26 3 Q20 16 30 38" stroke="#c8c8c8" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      </svg>
+      <span class="logo__text">Dribble</span>
+    </a>
+    <div class="nav__links">
+      <a href="{{ url_for('dashboard') }}"  class="nav__link">Dashboard</a>
+      <a href="{{ url_for('interview') }}"  class="nav__link">Interview</a>
+      <a href="{{ url_for('latency') }}"    class="nav__link">Latency</a>
+      <a href="{{ url_for('admin') }}"      class="nav__link nav__link--active">Admin</a>
+    </div>
+    <div class="nav__right">
+      <div class="nav__user nav__user--admin">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" width="15" height="15">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        <span>{{ username }} <em>· admin</em></span>
+      </div>
+      <a href="{{ url_for('logout') }}" class="nav__logout">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" width="15" height="15">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        Logout
+      </a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ── PAGE HEADER ── -->
+    <div class="page-header">
+      <p class="page-header__eyebrow">Admin Panel</p>
+      <h1 class="page-header__title">All User <span>Sessions</span></h1>
+      <p class="page-header__sub">Complete history of every interview session across all users. Full access to transcripts, metrics, and AI feedback.</p>
+
+      <!-- Stats strip -->
+      {% set total     = history | length %}
+      {% set users_set = history | map(attribute='username') | list | unique | list %}
+      {% set fluent_c  = history | selectattr('fluency_label', 'equalto', 'Fluent') | list | length %}
+      <div class="stats-strip">
+        <div class="stat-pill">
+          <span class="stat-pill__num">{{ total }}</span>
+          <span class="stat-pill__label">Total Sessions</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-pill">
+          <span class="stat-pill__num">{{ users_set | length }}</span>
+          <span class="stat-pill__label">Unique Users</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-pill">
+          <span class="stat-pill__num stat-pill__num--green">{{ fluent_c }}</span>
+          <span class="stat-pill__label">Fluent</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-pill">
+          <span class="stat-pill__num stat-pill__num--red">{{ total - fluent_c }}</span>
+          <span class="stat-pill__label">Needs Work</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── FILTER BAR ── -->
+    <div class="filter-bar">
+      <div class="filter-bar__left">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="HR">HR</button>
+        <button class="filter-btn" data-filter="Technical">Technical</button>
+        <button class="filter-btn" data-filter="Behavioral">Behavioral</button>
+        <button class="filter-btn" data-filter="Aptitude">Aptitude</button>
+      </div>
+      <div class="filter-bar__right">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" width="14" height="14">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="text" id="searchInput" placeholder="Search by user or question…" autocomplete="off"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── HISTORY TABLE ── -->
+    {% if history %}
+
+    <div class="history-wrap" id="historyWrap">
+
+      <div class="history-header">
+        <span class="col-num">#</span>
+        <span class="col-user">User</span>
+        <span class="col-cat">Category</span>
+        <span class="col-question">Question</span>
+        <span class="col-label">Fluency</span>
+        <span class="col-time">Timestamp</span>
+        <span class="col-action"></span>
+      </div>
+
+      {% for entry in history | reverse %}
+      <div class="history-row"
+           data-category="{{ entry.category }}"
+           data-search="{{ entry.username | lower }} {{ entry.question | lower }}"
+           style="animation-delay: {{ loop.index0 * 0.03 }}s">
+
+        <span class="col-num">{{ history | length - loop.index0 }}</span>
+
+        <span class="col-user">
+          <span class="user-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" width="11" height="11">
+              <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+            </svg>
+            {{ entry.username }}
+          </span>
+        </span>
+
+        <span class="col-cat">
+          <span class="cat-badge cat-badge--{{ entry.category | lower }}">
+            {{ entry.category }}
+          </span>
+        </span>
+
+        <span class="col-question" title="{{ entry.question }}">
+          {{ entry.question | truncate(60, True, '…') }}
+        </span>
+
+        <span class="col-label">
+          {% set fl = entry.fluency_label | lower | replace(' ', '-') %}
+          <span class="fluency-badge fluency-badge--{{ fl }}">
+            {{ entry.fluency_label }}
+          </span>
+        </span>
+
+        <span class="col-time">{{ entry.timestamp }}</span>
+
+        <span class="col-action">
+          <a href="{{ url_for('view_result', result_id=entry.id) }}" class="btn-view">
+            View
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" width="12" height="12">
+              <path d="M5 12h14"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </a>
+        </span>
+
+      </div>
+      {% endfor %}
+
+    </div>
+
+    <div class="empty-state" id="emptyFilter" style="display:none">
+      <div class="empty-state__icon">🔍</div>
+      <p class="empty-state__title">No matching sessions</p>
+      <p class="empty-state__sub">Try a different category or search term.</p>
+    </div>
+
+    {% else %}
+    <div class="empty-state">
+      <div class="empty-state__icon">🎙️</div>
+      <p class="empty-state__title">No sessions yet</p>
+      <p class="empty-state__sub">No users have completed an interview session yet.</p>
+    </div>
+    {% endif %}
+
+    {% if history %}
+    <div class="action-bar">
+      <a href="{{ url_for('dashboard') }}" class="btn-ghost">← Dashboard</a>
+      <a href="{{ url_for('interview') }}" class="btn-primary">New Interview →</a>
+    </div>
+    {% endif %}
+
+  </main>
+
+  <footer>
+    <p>© 2025 Dribble · AI Interview Feedback</p>
+    <p>Admin Panel · {{ username }}</p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dribble — Benchmark Results</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dancing+Script:wght@700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/latency_result.css') }}"/>
+</head>
+<body>
+
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <!-- ── NAVBAR ── -->
+  <nav>
+    <a href="{{ url_for('index') }}" class="nav__logo">
+      <svg class="logo__icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="22" cy="22" r="20" stroke="#c8c8c8" stroke-width="2.4"/>
+        <path d="M7 14 Q16 20 18 36" stroke="#c8c8c8" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        <path d="M3 24 Q14 18 38 26" stroke="#c8c8c8" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        <path d="M26 3 Q20 16 30 38" stroke="#c8c8c8" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      </svg>
+      <span class="logo__text">Dribble</span>
+    </a>
+    <div class="nav__links">
+      <a href="{{ url_for('dashboard') }}" class="nav__link">Dashboard</a>
+      <a href="{{ url_for('interview') }}" class="nav__link">Interview</a>
+      <a href="{{ url_for('latency') }}"   class="nav__link nav__link--active">Latency</a>
+      {% if session.get('role') == 'admin' %}
+      <a href="{{ url_for('admin') }}"     class="nav__link">Admin</a>
+      {% endif %}
+    </div>
+    <div class="nav__right">
+      <div class="nav__user">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" width="15" height="15">
+          <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+        </svg>
+        <span>{{ session.get('username') }}</span>
+      </div>
+      <a href="{{ url_for('logout') }}" class="nav__logout">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" width="15" height="15">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        Logout
+      </a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ── PAGE HEADER ── -->
+    <div class="page-header">
+      <p class="page-header__eyebrow">Benchmark Complete</p>
+      <h1 class="page-header__title">Latency <span>Results</span></h1>
+      <p class="page-header__sub">
+        {{ latency_result.runs }} consecutive runs completed.
+        All times in seconds. LLM excluded to preserve quota.
+      </p>
+
+      <!-- Device strip -->
+      <div class="device-strip">
+        <div class="device-chip">
+          <span class="device-chip__icon">
+            {% if latency_result.cuda_available %}🟢{% else %}🔵{% endif %}
+          </span>
+          <span class="device-chip__label">Device</span>
+          <span class="device-chip__val">{{ latency_result.device_used | upper }}</span>
+        </div>
+        <div class="device-chip">
+          <span class="device-chip__icon">⚡</span>
+          <span class="device-chip__label">CUDA</span>
+          <span class="device-chip__val {% if latency_result.cuda_available %}val--green{% else %}val--red{% endif %}">
+            {{ 'Available' if latency_result.cuda_available else 'Not Available' }}
+          </span>
+        </div>
+        <div class="device-chip">
+          <span class="device-chip__icon">🔁</span>
+          <span class="device-chip__label">Runs</span>
+          <span class="device-chip__val">{{ latency_result.runs }}</span>
+        </div>
+        <div class="device-chip">
+          <span class="device-chip__icon">📊</span>
+          <span class="device-chip__label">Fluency</span>
+          {% set fl = latency_result.sample_fluency_label | lower | replace(' ', '-') %}
+          <span class="device-chip__val fluency-val--{{ fl }}">
+            {{ latency_result.sample_fluency_label }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SUMMARY CARDS ── -->
+    <div class="summary-grid">
+
+      {% set stages = [
+        { 'key': 'whisper', 'icon': '🎙️', 'label': 'Whisper ASR',          'desc': 'Speech-to-text transcription' },
+        { 'key': 'feature', 'icon': '⚙️', 'label': 'Feature Extraction',   'desc': 'NLP + audio features' },
+        { 'key': 'ml',      'icon': '📊', 'label': 'ML Prediction',         'desc': 'RandomForest fluency model' },
+        { 'key': 'total',   'icon': '⏱️', 'label': 'Total Pipeline',        'desc': 'End-to-end (excl. LLM)' },
+      ] %}
+
+      {% for s in stages %}
+      {% set avg = latency_result[s.key + '_avg_sec'] %}
+      {% set mn  = latency_result[s.key + '_min_sec'] %}
+      {% set mx  = latency_result[s.key + '_max_sec'] %}
+      {% set spread = mx - mn %}
+
+      <div class="summary-card {% if s.key == 'total' %}summary-card--total{% endif %}">
+        <div class="summary-card__hdr">
+          <span class="summary-card__icon">{{ s.icon }}</span>
+          <div>
+            <div class="summary-card__label">{{ s.label }}</div>
+            <div class="summary-card__desc">{{ s.desc }}</div>
+          </div>
+        </div>
+
+        <div class="summary-card__avg">{{ avg }}s</div>
+        <div class="summary-card__sub">avg across {{ latency_result.runs }} runs</div>
+
+        <div class="summary-card__range">
+          <span class="range-chip range-chip--min">↓ {{ mn }}s</span>
+          <div class="range-bar">
+            <div class="range-bar__fill" data-spread="{{ spread }}" data-max="{{ mx }}"></div>
+          </div>
+          <span class="range-chip range-chip--max">↑ {{ mx }}s</span>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+
+    <!-- ── AVG / MIN / MAX TABLE ── -->
+    <div class="section-block">
+      <div class="section-block__hdr">
+        <p class="section-block__label">Stage Summary</p>
+        <p class="section-block__note">Average · Minimum · Maximum across all {{ latency_result.runs }} runs</p>
+      </div>
+
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Stage</th>
+              <th>Average (s)</th>
+              <th>Minimum (s)</th>
+              <th>Maximum (s)</th>
+              <th>Spread (s)</th>
+              <th>% of Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% set total_avg = latency_result.total_avg_sec %}
+
+            {% set rows = [
+              ('🎙️', 'Whisper ASR',        latency_result.whisper_avg_sec, latency_result.whisper_min_sec, latency_result.whisper_max_sec, 'whisper'),
+              ('⚙️', 'Feature Extraction', latency_result.feature_avg_sec, latency_result.feature_min_sec, latency_result.feature_max_sec, 'feature'),
+              ('📊', 'ML Prediction',      latency_result.ml_avg_sec,      latency_result.ml_min_sec,      latency_result.ml_max_sec,      'ml'),
+              ('⏱️', 'Total Pipeline',     latency_result.total_avg_sec,   latency_result.total_min_sec,   latency_result.total_max_sec,   'total'),
+            ] %}
+
+            {% for icon, name, avg, mn, mx, key in rows %}
+            {% set spread = (mx - mn) | round(4) %}
+            {% set pct    = ((avg / total_avg) * 100) | round(1) if total_avg > 0 else 0 %}
+            <tr class="{% if key == 'total' %}tr--total{% endif %}">
+              <td class="td-stage">
+                <span class="td-icon">{{ icon }}</span>
+                {{ name }}
+              </td>
+              <td class="td-num td-avg">{{ avg }}</td>
+              <td class="td-num td-min">{{ mn }}</td>
+              <td class="td-num td-max">{{ mx }}</td>
+              <td class="td-num td-spread">{{ spread }}</td>
+              <td class="td-pct">
+                {% if key != 'total' %}
+                <div class="pct-bar-wrap">
+                  <div class="pct-bar">
+                    <div class="pct-bar__fill pct-bar__fill--{{ key }}" style="width:{{ pct }}%"></div>
+                  </div>
+                  <span>{{ pct }}%</span>
+                </div>
+                {% else %}
+                <span class="pct-total">100%</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── PER-RUN TABLE ── -->
+    <div class="section-block">
+      <div class="section-block__hdr">
+        <p class="section-block__label">Per-Run Breakdown</p>
+        <p class="section-block__note">Individual latency (seconds) for each of the {{ latency_result.runs }} runs</p>
+      </div>
+
+      <div class="data-table-wrap">
+        <table class="data-table data-table--runs">
+          <thead>
+            <tr>
+              <th>Run</th>
+              <th>🎙️ Whisper (s)</th>
+              <th>⚙️ Features (s)</th>
+              <th>📊 ML (s)</th>
+              <th>⏱️ Total (s)</th>
+              <th>vs Avg</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% set w_list = latency_result.whisper_latencies_sec %}
+            {% set f_list = latency_result.feature_latencies_sec %}
+            {% set m_list = latency_result.ml_latencies_sec %}
+            {% set t_list = latency_result.total_latencies_sec %}
+            {% set t_avg  = latency_result.total_avg_sec %}
+
+            {% for i in range(latency_result.runs) %}
+            {% set t_val = t_list[i] %}
+            {% set diff  = (t_val - t_avg) | round(2) %}
+            {% set diff_cls = 'diff--fast' if diff <= 0 else 'diff--slow' %}
+            <tr>
+              <td class="td-run">{{ '%02d' % (i + 1) }}</td>
+              <td class="td-num">{{ w_list[i] }}</td>
+              <td class="td-num">{{ f_list[i] }}</td>
+              <td class="td-num">{{ m_list[i] }}</td>
+              <td class="td-num td-total">{{ t_val }}</td>
+              <td>
+                <span class="diff-chip {{ diff_cls }}">
+                  {{ '+' if diff > 0 else '' }}{{ diff }}s
+                </span>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── SAMPLE TRANSCRIPT ── -->
+    <div class="section-block">
+      <div class="section-block__hdr">
+        <p class="section-block__label">Sample Transcript</p>
+        <p class="section-block__note">From run 01 — used for all benchmark iterations</p>
+      </div>
+      <div class="transcript-card">
+        <p class="transcript-card__text">
+          {{ latency_result.sample_transcript or '— No transcript captured —' }}
+        </p>
+      </div>
+    </div>
+
+    <!-- ── ACTION BAR ── -->
+    <div class="action-bar">
+      <a href="{{ url_for('latency') }}" class="btn-primary">Run Again →</a>
+      {% if pdf_file %}
+      <a href="{{ url_for('download_pdf', filename=pdf_file) }}" class="btn-ghost">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" width="15" height="15">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Download PDF
+      </a>
+      {% endif %}
+      <a href="{{ url_for('dashboard') }}" class="btn-ghost">← Dashboard</a>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>© 2025 Dribble · AI Interview Feedback</p>
+    <p>Madem Sharan Tej Reddy · VIT Vellore</p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/latency_result.js') }}"></script>
+</body>
+</html>

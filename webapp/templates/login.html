@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dribble — Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dancing+Script:wght@700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}"/>
+</head>
+<body>
+
+  <div class="cursor-glow" id="cursorGlow"></div>
+  <div class="cursor-dot"  id="cursorDot"></div>
+
+  <nav>
+    <a href="{{ url_for('index') }}" class="nav__logo">
+      <svg class="logo__icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="22" cy="22" r="20" stroke="#c8c8c8" stroke-width="2.4"/>
+        <path d="M7 14 Q16 20 18 36"  stroke="#c8c8c8" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        <path d="M3 24 Q14 18 38 26"  stroke="#c8c8c8" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        <path d="M26 3 Q20 16 30 38"  stroke="#c8c8c8" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      </svg>
+      <span class="logo__text">Dribble</span>
+    </a>
+  </nav>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="flash flash--{{ category }}" id="flashMsg">
+          <span>{{ message }}</span>
+          <button class="flash__close" onclick="this.parentElement.remove()">✕</button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <main>
+
+    <div class="panel panel--left">
+      <div class="panel__content">
+        <p class="panel__eyebrow">AI Interview Coaching</p>
+        <h1 class="panel__title">
+          Your Voice.<br/>
+          <span>Your Feedback.</span>
+        </h1>
+        <p class="panel__sub">
+          Record your answer. Dribble listens, analyses, and gives you structured feedback — fluency, clarity, confidence — in seconds.
+        </p>
+        <div class="panel__stats">
+          <div class="stat">
+            <div class="stat__num">4</div>
+            <div class="stat__label">Categories</div>
+          </div>
+          <div class="stat__divider"></div>
+          <div class="stat">
+            <div class="stat__num">AI</div>
+            <div class="stat__label">Powered</div>
+          </div>
+          <div class="stat__divider"></div>
+          <div class="stat">
+            <div class="stat__num">Real</div>
+            <div class="stat__label">Feedback</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel--right">
+      <div class="login-box" id="loginBox">
+
+        <div class="login-box__header">
+          <p class="login-box__tag">Welcome Back</p>
+          <h2 class="login-box__title">Sign In</h2>
+          <p class="login-box__sub">Enter your credentials to continue</p>
+        </div>
+
+        <form method="POST" action="{{ url_for('login') }}" id="loginForm" novalidate>
+
+          <div class="field" id="fieldUsername">
+            <label class="field__label" for="username">Username</label>
+            <div class="field__wrap">
+              <span class="field__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                  <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+                </svg>
+              </span>
+              <input type="text" id="username" name="username" class="field__input"
+                placeholder="Enter username" autocomplete="username" required/>
+              <span class="field__check" id="checkUsername"></span>
+            </div>
+            <p class="field__error" id="errUsername"></p>
+          </div>
+
+          <div class="field" id="fieldPassword">
+            <label class="field__label" for="password">Password</label>
+            <div class="field__wrap">
+              <span class="field__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+              </span>
+              <input type="password" id="password" name="password" class="field__input"
+                placeholder="Enter password" autocomplete="current-password" required/>
+              <button type="button" class="field__toggle" id="togglePassword" aria-label="Toggle password">
+                <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
+            </div>
+            <p class="field__error" id="errPassword"></p>
+          </div>
+
+          <button type="submit" class="btn-login" id="btnLogin">
+            <span class="btn-login__text">Sign In</span>
+            <span class="btn-login__arrow">→</span>
+            <span class="btn-login__loader" id="btnLoader"></span>
+          </button>
+
+        </form>
+
+        <div class="demo">
+          <p class="demo__label">
+            <span class="demo__line"></span>
+            Quick Demo Access
+            <span class="demo__line"></span>
+          </p>
+          <div class="demo__cards">
+            <button class="demo__card" data-user="user" data-pass="user123" type="button">
+              <span class="demo__role">User</span>
+              <span class="demo__creds">user / user123</span>
+              <span class="demo__hint">Click to fill</span>
+            </button>
+            <button class="demo__card" data-user="admin" data-pass="admin123" type="button">
+              <span class="demo__role">Admin</span>
+              <span class="demo__creds">admin / admin123</span>
+              <span class="demo__hint">Click to fill</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer-strip">
+    <p>© 2025 Dribble · AI Interview Feedback</p>
+    <p>Madem Sharan Tej Reddy · VIT Vellore</p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+</body>
+</html>

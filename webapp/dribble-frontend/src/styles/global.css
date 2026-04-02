@@ -1,0 +1,167 @@
+/* ================================================================
+   global.css — Dribble Design System
+   ================================================================ */
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --black:      #000000;
+  --white:      #ffffff;
+  --off-white:  #e8e8e8;
+  --silver:     #a0a0a0;
+  --light-gray: #d4d4d4;
+  --green:      #44cc88;
+  --red:        #ff5555;
+  --amber:      #f0a030;
+}
+
+html, body {
+  height: 100%;
+  background: #000;
+  font-family: 'Outfit', sans-serif;
+  overflow-x: hidden;
+}
+
+#root {
+  height: 100%;
+}
+
+.route-transition {
+  min-height: 100%;
+  transform-origin: top center;
+  will-change: transform, opacity, filter;
+}
+
+.route-transition--enter {
+  animation: routeDropIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.route-transition--exit {
+  animation: routeLiftOut 0.16s cubic-bezier(0.4, 0, 1, 1) both;
+  pointer-events: none;
+}
+
+@keyframes routeDropIn {
+  from {
+    opacity: 0;
+    transform: translateY(-18px) scale(0.996);
+    filter: blur(1.5px);
+  }
+
+  65% {
+    opacity: 1;
+    transform: translateY(2px) scale(1);
+    filter: blur(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes routeLiftOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(10px) scale(0.998);
+    filter: blur(1.5px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-transition--enter,
+  .route-transition--exit {
+    animation: none;
+  }
+}
+
+/* Noise overlay applied globally */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.35;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: 'Outfit', sans-serif;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.theme-symbol-picker {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+}
+
+.theme-symbol-picker.theme-symbol-picker--light {
+  border-color: rgba(58, 70, 82, 0.24);
+  background: rgba(255, 250, 240, 0.88);
+}
+
+.theme-symbol-btn {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  font-size: 0.95rem;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.8);
+  transition: transform 0.16s ease, background 0.16s ease, border-color 0.16s ease, color 0.16s ease;
+}
+
+.theme-symbol-picker--light .theme-symbol-btn {
+  color: rgba(39, 49, 58, 0.82);
+}
+
+.theme-symbol-btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.theme-symbol-picker--light .theme-symbol-btn:hover {
+  border-color: rgba(47, 143, 131, 0.42);
+  background: rgba(47, 143, 131, 0.12);
+}
+
+.theme-symbol-btn.is-active {
+  border-color: rgba(68, 204, 136, 0.55);
+  background: rgba(68, 204, 136, 0.2);
+  color: #ffffff;
+}
+
+.theme-symbol-picker--light .theme-symbol-btn.is-active {
+  color: #1f2a33;
+  border-color: rgba(47, 143, 131, 0.56);
+  background: rgba(47, 143, 131, 0.2);
+}

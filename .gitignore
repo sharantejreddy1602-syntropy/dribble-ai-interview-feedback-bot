@@ -1,0 +1,26 @@
+# Node & React
+node_modules/
+dist/
+.vite/
+
+# Python & Environments
+venv/
+env/
+__pycache__/
+*.pyc
+
+# Environment Variables (Secrets)
+.env
+
+# Media & Uploads (DO NOT PUSH TEST DATA)
+webapp/uploads/
+audio_module/audio_samples/
+*.mp4
+*.mp3
+*.wav
+*.webm
+*.pdf
+
+# OS generated files
+.DS_Store
+Thumbs.db

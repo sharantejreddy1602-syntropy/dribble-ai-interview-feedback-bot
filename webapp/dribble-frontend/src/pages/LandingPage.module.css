@@ -1,0 +1,452 @@
+/* ================================================================
+   LandingPage.module.css — Enhanced aesthetic landing page
+   ================================================================ */
+
+/* ── PAGE ── */
+.page {
+  height: 100vh;
+  overflow: hidden;
+  background: #000;
+  position: relative;
+}
+
+/* ── PARTICLE CANVAS ── */
+.particleCanvas {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ── CURSOR GLOW ── */
+.cursorGlow {
+  pointer-events: none;
+  position: fixed;
+  width: 480px;
+  height: 480px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255,255,255,0.06) 0%,
+    rgba(255,255,255,0.02) 40%,
+    transparent 70%
+  );
+  transform: translate(-50%, -50%);
+  z-index: 998;
+  transition: left 0.12s ease, top 0.12s ease;
+  mix-blend-mode: screen;
+}
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.heroBg {
+  position: absolute;
+  inset: 0;
+  background: url('/pics/background.jpeg') center center / cover no-repeat;
+  z-index: 0;
+  transform: scale(1.04);
+  animation: slowZoom 20s ease-in-out infinite alternate;
+}
+
+@keyframes slowZoom {
+  from { transform: scale(1.04); }
+  to   { transform: scale(1.10); }
+}
+
+/* Dark gradient overlay */
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.75) 100%),
+    linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 30%, rgba(0,0,0,0.5) 100%);
+  z-index: 1;
+}
+
+/* ── NAVBAR ── */
+.nav {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 52px;
+  transition: background 0.4s ease, backdrop-filter 0.4s ease;
+  animation: fadeDown 0.9s ease both;
+}
+
+.navScrolled {
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.navLogo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.logoIcon {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 8px rgba(200,200,200,0.4));
+  transition: filter 0.3s;
+}
+.navLogo:hover .logoIcon {
+  filter: drop-shadow(0 0 14px rgba(255,255,255,0.6));
+}
+
+.logoText {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #c8c8c8;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+}
+
+
+
+@keyframes pulse {
+  0%, 100% { opacity: 1;   transform: scale(1);    box-shadow: 0 0 8px rgba(68,204,136,0.8); }
+  50%       { opacity: 0.6; transform: scale(1.3);  box-shadow: 0 0 14px rgba(68,204,136,0.5); }
+}
+
+
+
+/* ── HERO CONTENT ── */
+.heroContent {
+  position: relative;
+  z-index: 5;
+  margin-left: auto;
+  margin-top: -100px;
+  max-width: 560px;
+  padding-right: 72px;
+  text-align: right;
+}
+
+/* Eyebrow */
+.heroEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 20px;
+  animation: fadeUp 0.8s 0.3s ease both;
+}
+
+.heroEyebrow::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: rgba(255,255,255,0.4);
+}
+
+/* Headline */
+.heroHeadline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.4rem, 6vw, 5.5rem);
+  line-height: 0.95;
+  letter-spacing: 0.03em;
+  color: var(--white);
+  margin-bottom: -40px;
+  animation: fadeUp 0.8s 0.45s ease both;
+  text-shadow: 0 2px 24px rgba(0,0,0,0.7);
+}
+
+.headlineOutline {
+  display: block;
+  color: transparent;
+  margin-bottom: -70px;
+  -webkit-text-stroke: 1.5px rgba(255,255,255,0.65);
+}
+
+/* Typing animated word */
+.headlineTyped {
+  display: block;
+  color: var(--white);
+  position: relative;
+}
+
+.cursor {
+  display: inline-block;
+  color: rgba(255,255,255,0.7);
+  animation: blink 0.9s step-end infinite;
+  margin-left: 2px;
+  font-weight: 100;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ── FEATURE TAGS ── */
+.featureTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-bottom: 22px;
+}
+
+.featureTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  padding: 6px 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(8px);
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+  opacity: 0;
+  animation: fadeUp 0.6s ease both forwards;
+  transition: background 0.25s, border-color 0.25s, color 0.25s;
+}
+
+.featureTag:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.35);
+  color: var(--white);
+}
+
+.featureTagIcon { font-size: 0.9rem; }
+
+/* ── BUTTONS ── */
+.heroActions {
+  display: flex;
+  gap: 14px;
+  justify-content: flex-end;
+  animation: fadeUp 0.8s 0.7s ease both;
+}
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 34px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  overflow: hidden;
+  transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.28s ease;
+}
+
+.btn:hover { transform: translateY(-4px); }
+
+/* Primary */
+.btnPrimary {
+  background: var(--white);
+  color: #000;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+}
+
+/* Shimmer sweep on primary btn */
+.btnBg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 0%, rgba(0,0,0,0.07) 50%, transparent 100%);
+  transform: translateX(-100%);
+  transition: transform 0.45s ease;
+}
+
+.btnPrimary:hover .btnBg {
+  transform: translateX(100%);
+}
+
+.btnPrimary:hover {
+  box-shadow: 0 14px 44px rgba(255,255,255,0.28);
+}
+
+.btnLabel { position: relative; z-index: 1; }
+
+.btnArrow {
+  font-size: 1.1rem;
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.btnArrowActive {
+  transform: translateX(5px);
+}
+
+/* Ghost */
+.btnGhost {
+  background: transparent;
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.4);
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  backdrop-filter: blur(8px);
+}
+
+.btnGhost:hover {
+  border-color: rgba(255,255,255,0.85);
+  background: rgba(255,255,255,0.06);
+  box-shadow: 0 8px 30px rgba(255,255,255,0.1);
+}
+
+/* ── STATS BAR ── */
+.heroFooter {
+  position: absolute;
+  bottom: 36px;
+  left: 52px;
+  right: 52px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  animation: fadeUp 0.8s 0.9s ease both;
+}
+
+/* Stat card */
+.statCard {
+  text-align: center;
+  padding: 16px 32px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  transition: background 0.28s ease, transform 0.28s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.28s ease;
+  min-width: 140px;
+  cursor: default;
+}
+
+.statCard:hover {
+  background: rgba(255,255,255,0.14);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 36px rgba(255,255,255,0.08);
+}
+
+.statNum {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.85rem;
+  color: var(--white);
+  letter-spacing: 0.05em;
+  text-shadow: 0 2px 14px rgba(0,0,0,0.7);
+  line-height: 1;
+}
+
+.statLabel {
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-top: 5px;
+}
+
+.footerDivider {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, rgba(255,255,255,0.05), rgba(255,255,255,0.18), rgba(255,255,255,0.05));
+  margin: 0 20px;
+}
+
+/* ── SCROLL HINT ── */
+.scrollHint {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  animation: fadeUp 1s 1.1s ease both;
+}
+
+.scrollMouse {
+  width: 22px;
+  height: 34px;
+  border: 1.5px solid rgba(255,255,255,0.3);
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  padding-top: 6px;
+}
+
+.scrollWheel {
+  width: 3px;
+  height: 6px;
+  background: rgba(255,255,255,0.6);
+  border-radius: 2px;
+  animation: scrollWheel 2s ease infinite;
+}
+
+@keyframes scrollWheel {
+  0%   { transform: translateY(0);  opacity: 1; }
+  60%  { transform: translateY(8px); opacity: 0; }
+  61%  { transform: translateY(0);  opacity: 0; }
+  100% { transform: translateY(0);  opacity: 1; }
+}
+
+.scrollText {
+  font-size: 0.58rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+}
+
+/* ── KEYFRAMES ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .heroContent {
+    margin: 0 auto;
+    padding: 0 28px;
+    text-align: left;
+    max-width: 100%;
+  }
+  .heroEyebrow   { justify-content: flex-start; }
+  .featureTags   { justify-content: flex-start; }
+  .heroActions   { justify-content: flex-start; }
+  .heroFooter    { left: 28px; right: 28px; flex-wrap: wrap; gap: 12px; }
+  .footerDivider { display: none; }
+  .statCard      { min-width: 100px; padding: 12px 20px; }
+  .nav           { padding: 20px 28px; }
+  .navPill       { display: none; }
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dribble — AI Interview Feedback</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dancing+Script:wght@700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}"/>
+</head>
+<body>
+
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <section class="hero">
+
+    <div class="hero__bg"></div>
+
+    <nav>
+      <a href="{{ url_for('index') }}" class="nav__logo">
+        <svg class="logo__icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="22" cy="22" r="20" stroke="#c8c8c8" stroke-width="2.4"/>
+          <path d="M7 14 Q16 20 18 36" stroke="#c8c8c8" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+          <path d="M3 24 Q14 18 38 26" stroke="#c8c8c8" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+          <path d="M26 3 Q20 16 30 38" stroke="#c8c8c8" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        </svg>
+        <span class="logo__text">Dribble</span>
+      </a>
+    </nav>
+
+    <div class="hero__content">
+      <p class="hero__eyebrow">AI-Powered Interview Coaching</p>
+      <h1 class="hero__headline">
+        Speak Better.<br/>
+        <span>Interview Smarter.</span>
+      </h1>
+      <div class="hero__actions">
+        <a href="{{ url_for('login') }}" class="btn btn--primary">
+          Get Started <span class="btn__arrow">→</span>
+        </a>
+        <a href="{{ url_for('knowmore') }}" class="btn btn--ghost">
+          Know More
+        </a>
+      </div>
+    </div>
+
+    <div class="hero__footer">
+      <div class="hero__stat">
+        <div class="stat__num">Audio</div>
+        <div class="stat__label">Answer Input</div>
+      </div>
+      <div class="hero__footer-divider"></div>
+      <div class="hero__stat">
+        <div class="stat__num">AI</div>
+        <div class="stat__label">Powered Analysis</div>
+      </div>
+      <div class="hero__footer-divider"></div>
+      <div class="hero__stat">
+        <div class="stat__num">Real-Time</div>
+        <div class="stat__label">Structured Feedback</div>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <div class="scroll-hint__line"></div>
+    </div>
+
+  </section>
+
+  <script>
+    const glow = document.getElementById('cursorGlow');
+    document.addEventListener('mousemove', e => {
+      glow.style.left = e.clientX + 'px';
+      glow.style.top  = e.clientY + 'px';
+    });
+  </script>
+
+</body>
+</html>
